@@ -1,18 +1,24 @@
 package com.leo.searchablespinnerexample
 
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.leo.searchablespinner.SearchableSpinner
 import com.leo.searchablespinner.interfaces.OnItemSelectListener
-import kotlinx.android.synthetic.main.searchable_spinner_implementation.*
+import com.leo.searchablespinnerexample.databinding.SearchableSpinnerImplementationBinding
 
 class KotlinImplementation : AppCompatActivity() {
 
     var isTextInputLayoutClicked: Boolean = false
+    private lateinit var searchableSpinnerBinding : SearchableSpinnerImplementationBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.searchable_spinner_implementation)
+        searchableSpinnerBinding = SearchableSpinnerImplementationBinding.inflate(
+            LayoutInflater.from(this), null, false
+        )
+        setContentView(searchableSpinnerBinding.root)
         val searchableSpinner = SearchableSpinner(this)
         searchableSpinner.windowTitle = "SEARCHABLE SPINNER"
         searchableSpinner.onItemSelectListener = object : OnItemSelectListener {
@@ -23,9 +29,9 @@ class KotlinImplementation : AppCompatActivity() {
                     Toast.LENGTH_SHORT
                 ).show()
                 if (isTextInputLayoutClicked)
-                    textInputSpinner.editText?.setText(selectedString)
+                    searchableSpinnerBinding.textInputSpinner.editText?.setText(selectedString)
                 else
-                    editTextSpinner.setText(selectedString)
+                    searchableSpinnerBinding.editTextSpinner.setText(selectedString)
             }
         }
 
@@ -51,14 +57,14 @@ class KotlinImplementation : AppCompatActivity() {
         )
 
         searchableSpinner.setSpinnerListItems(androidVersionList)
-        textInputSpinner.editText?.keyListener = null
-        textInputSpinner.editText?.setOnClickListener {
+        searchableSpinnerBinding.textInputSpinner.editText?.keyListener = null
+        searchableSpinnerBinding.textInputSpinner.editText?.setOnClickListener {
             isTextInputLayoutClicked = true
             searchableSpinner.show()
         }
 
-        editTextSpinner.keyListener = null
-        editTextSpinner.setOnClickListener {
+        searchableSpinnerBinding.editTextSpinner.keyListener = null
+        searchableSpinnerBinding.editTextSpinner.setOnClickListener {
             searchableSpinner.highlightSelectedItem = false
             isTextInputLayoutClicked = false
             searchableSpinner.show()

@@ -44,7 +44,7 @@ internal object CircularReveal {
             )
 
         circularRevealAnimator.addListener(object : AnimatorListenerAdapter() {
-            override fun onAnimationEnd(animation: Animator?) {
+            override fun onAnimationEnd(animation: Animator) {
                 super.onAnimationEnd(animation)
                 if (!toReveal) dialog.dismiss()
                 onAnimationEnd.onAnimationEndListener(toReveal)

@@ -10,7 +10,6 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.leo.searchablespinner.R
 import com.leo.searchablespinner.interfaces.OnItemSelectListener
-import kotlinx.android.synthetic.main.list_item_seachable_spinner.view.*
 
 
 internal class SpinnerRecyclerAdapter(
@@ -73,7 +72,7 @@ internal class SpinnerRecyclerAdapter(
 
 
     class SpinnerHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val textViewSpinnerItem: TextView = itemView.textViewSpinnerItem
+        val textViewSpinnerItem: TextView = itemView.findViewById(R.id.textViewSpinnerItem)
     }
 
     fun filter(query: CharSequence?) {

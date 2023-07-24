@@ -6,6 +6,7 @@ import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.graphics.drawable.InsetDrawable
 import android.view.KeyEvent
+import android.view.LayoutInflater
 import android.view.View
 import android.view.WindowManager
 import android.view.inputmethod.InputMethodManager
@@ -19,19 +20,19 @@ import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleObserver
 import androidx.lifecycle.OnLifecycleEvent
+import com.leo.searchablespinner.databinding.SearchableSpinnerBinding
 import com.leo.searchablespinner.interfaces.OnAnimationEnd
 import com.leo.searchablespinner.interfaces.OnItemSelectListener
 import com.leo.searchablespinner.utils.CircularReveal
 import com.leo.searchablespinner.utils.SpinnerRecyclerAdapter
-import kotlinx.android.synthetic.main.searchable_spinner.view.*
 
 
 @Suppress("MemberVisibilityCanBePrivate", "RedundantSetter", "RedundantGetter")
 class SearchableSpinner(private val context: Context) : LifecycleObserver {
+
     lateinit var onItemSelectListener: OnItemSelectListener
     private lateinit var dialog: AlertDialog
-    //private lateinit var clickedView: View
-    private lateinit var dialogView: View
+    private lateinit var dialogView: SearchableSpinnerBinding
     private lateinit var recyclerAdapter: SpinnerRecyclerAdapter
 
     var windowTopBackgroundColor: Int? = null
@@ -85,11 +86,11 @@ class SearchableSpinner(private val context: Context) : LifecycleObserver {
 
     fun show() {
         if (getDialogInfo(true)) {
-            //clickedView = view
-            dialogView = View.inflate(context, R.layout.searchable_spinner, null)
+            dialogView = SearchableSpinnerBinding.inflate(LayoutInflater.from(context), null, false)
+
             val dialogBuilder =
                 AlertDialog.Builder(context)
-                    .setView(dialogView)
+                    .setView(dialogView.root)
                     .setCancelable(spinnerCancelable || negativeButtonVisibility != SpinnerView.VISIBLE)
 
             dialog = dialogBuilder.create()
